@@ -1,5 +1,8 @@
 package com.imooc.web.controller;
 
+import com.imooc.web.aspect.CRUDRest;
+import com.imooc.web.entity.Person;
+import com.imooc.web.resp.BatchResp;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
@@ -22,8 +25,23 @@ public class HelloWorldController {
 
     @RequestMapping("/hello2")
     @ResponseBody
+    @CRUDRest(type = CRUDRest.Type.Read)
     public String hello2(){
         return "hello";
+    }
+
+    @RequestMapping("/hello3")
+    @ResponseBody
+    @CRUDRest(type = CRUDRest.Type.Read)
+    public BatchResp<Person> hello3(){
+
+        Person p=new Person();
+        p.setId(12);
+        p.setName("sunyj");
+        BatchResp batchResp=new BatchResp("2101231993");
+        batchResp.setData(p);
+
+        return batchResp ;
     }
 
 

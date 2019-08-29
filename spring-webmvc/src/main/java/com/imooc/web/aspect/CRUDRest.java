@@ -116,8 +116,8 @@ public @interface CRUDRest {
     public final static Class<?> _defaultException = BaseException.class;
 
     /**
-     * 自定义异常类型。AOP会放过自定义异常
-     * @return AOP会放过的自定义异常
+     *      * 自定义异常类型。AOP会放过自定义异常
+     *      * @return AOP会放过的自定义异常
      */
     public Class<?> exception() default BaseException.class;
 }

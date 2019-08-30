@@ -128,12 +128,15 @@ public class CRUDRestAop {
         CRUDRest classCRUDRestAnnotation = (CRUDRest) signature.getDeclaringType().getAnnotation(CRUDRest.class);
         RestMeta classMeta = null;
         if (classCRUDRestAnnotation != null) {
+            //将获取到的注解信息，封装到RestMeta对象中，RestMeta就是用来映射注解数据的
             classMeta = RestMeta.genMeta(classCRUDRestAnnotation);
         }
 
         // 2.获取方法的注解信息
         Method method = signature.getMethod();
         CRUDRest methodAnnotation = method.getAnnotation(CRUDRest.class);
+
+        //将获取到的注解信息，封装到RestMeta对象中，RestMeta就是用来映射注解数据的
         RestMeta methodMeta = RestMeta.genMeta(methodAnnotation);
 
         // 3.比较方法和类的注解信息.方法注解优先于类注解
@@ -146,7 +149,8 @@ public class CRUDRestAop {
         Class finalExceptionClass = CRUDRest._defaultException.equals(methodMeta.getException()) && (classMeta != null)
                 ? classMeta.getException()
                 : methodMeta.getException();
-        CRUDRest.Type finalType = methodMeta.getType(); // type只能作用到方法上,因此这里只能取方法的。
+        // type只能作用到方法上,因此这里只能取方法的。
+        CRUDRest.Type finalType = methodMeta.getType();
 
         // 4.装箱
         RestMeta finalMeta = new RestMeta();
@@ -380,6 +384,7 @@ public class CRUDRestAop {
     private BaseResp genDefaultResp(Method method) throws CRUDException, IllegalAccessException, InstantiationException {
         Class<?> returnType = method.getReturnType();
         if (!BaseResp.class.isAssignableFrom(returnType)){
+            //这个方法决定了 返回值必须继承自BaseResp类型
             throw new CRUDException("使用了无效的微服务response类型,务必继承自BaseResp类型!");
         }
         return (BaseResp) returnType.newInstance();

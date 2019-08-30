@@ -30,6 +30,12 @@ public class HelloWorldController {
         return "hello";
     }
 
+
+
+
+
+
+
     @RequestMapping("/hello3")
     @ResponseBody
     @CRUDRest(type = CRUDRest.Type.Read)
@@ -42,6 +48,16 @@ public class HelloWorldController {
         batchResp.setData(p);
 
         return batchResp ;
+    }
+
+
+    @RequestMapping("/add")
+    @ResponseBody
+    @CRUDRest(type = CRUDRest.Type.Create)
+    public BatchResp<Person> add(@RequestBody Person person){
+        BatchResp<Person> batchResp=new BatchResp();
+        batchResp.setData(person);
+        return batchResp;
     }
 
 

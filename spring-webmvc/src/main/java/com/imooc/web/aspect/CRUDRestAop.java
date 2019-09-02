@@ -140,6 +140,7 @@ public class CRUDRestAop {
         RestMeta methodMeta = RestMeta.genMeta(methodAnnotation);
 
         // 3.比较方法和类的注解信息.方法注解优先于类注解
+        //意思就是方法上有 就去方法上的值，如果没有获取类上的值
         String finalFaildStr = StringUtils.equals(CRUDRest._defaultFaildStr, methodMeta.getFaildStr())
                 && (classMeta != null) ? classMeta.getFaildStr() : methodMeta.getFaildStr();
         String finalModelCode = StringUtils.equals(CRUDRest._defaultModelCode, methodMeta.getModelCode())
@@ -152,7 +153,7 @@ public class CRUDRestAop {
         // type只能作用到方法上,因此这里只能取方法的。
         CRUDRest.Type finalType = methodMeta.getType();
 
-        // 4.装箱
+        // 4.装箱======RestMeta映射@CRUDRest注解属性值
         RestMeta finalMeta = new RestMeta();
         finalMeta.setFaildStr(finalFaildStr);
         finalMeta.setType(finalType);

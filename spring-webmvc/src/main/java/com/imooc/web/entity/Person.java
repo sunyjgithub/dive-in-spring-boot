@@ -1,8 +1,13 @@
 package com.imooc.web.entity;
 
 
+import com.imooc.web.validation.Add;
+
+import javax.validation.constraints.NotBlank;
+
 public class Person {
 
+    @NotBlank(groups = Add.class)
     private Integer id;
 
     private String name;
